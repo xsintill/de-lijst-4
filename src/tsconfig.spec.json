@@ -8,6 +8,9 @@
     "types": [
       "jasmine",
       "node"
+    ],
+    "plugins": [
+      { "name": "tslint-language-service"}
     ]
   },
   "files": [

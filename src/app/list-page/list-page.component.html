@@ -1,0 +1,30 @@
+<div fxLayout="column">
+    <div fxLayout>
+        <mat-input-container fxFlex="30" class="lsn-search-box">
+            <input matInput 
+            #searchBox 
+            id="search-box" 
+            placeholder="Search" 
+            
+            (keyup)="search(searchBox.value)">
+        </mat-input-container>
+    </div>
+    <mat-list class="lsn-scrollable">
+            
+        <mat-list-item *ngFor="let film of films ; trackBy: film?.Id;let i = index" 
+                       class="lsn-film-item" 
+                       fxLayout 
+                       fxLayoutAlign="start center" 
+                       (click)="gotoIMDB(film.Url)">
+            <img *ngIf="i < 10" 
+                 src="{{film.poster_path || '' }} " 
+                 fxFlex 
+                 class="lsn-row-poster"
+                 style="height: 184px; object-fit: contain;"
+            /> 
+                    {{film.Title}} {{getPosterPath(film.Url, i)}}
+            
+        </mat-list-item>
+        <mat-divider class="lsn-list-divider"></mat-divider>
+    </mat-list>
+</div>

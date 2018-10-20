@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" 
+            fxLayout 
+            fxLayoutAlign="space-between center" 
+            matTooltip="{{getTooltip()}}" 
+            matTooltipPosition="above">
+  <span *ngIf="dbAnalytics" fxFlex="20">Total: {{dbAnalytics.MoviesSeenCount}}</span>
+  <span fxFlex></span>
+  <span *ngIf="filteredFilmsTotal" fxFlex="30">Filtered: {{filteredFilmsTotal }}</span>
+</mat-toolbar>

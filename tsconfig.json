@@ -7,13 +7,26 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": false,
     "target": "es5",
+    // "suppressImplicitAnyIndexErrors": true,
+    // "suppressExcessPropertyErrors": true,
+    // "noStrictGenericChecks": true,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
       "es2017",
       "dom"
+    ],
+    "plugins": [
+      { "name": "tslint-language-service"}
     ]
   }
 }
