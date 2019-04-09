@@ -1,3 +1,4 @@
+import { ConfirmConfig } from "./../dialog/dialog.service";
 import { TMDBMovie } from "../tmdb.service";
 import { TMDBService } from "../tmdb.service";
 import { FilmService } from "../film.service";
@@ -5,6 +6,8 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular
 import * as _ from "lodash";
 
 import { Subject } from "rxjs/Subject";
+// import { MatDialog } from "@angular/material";
+import { DialogService } from "../dialog/dialog.service";
 
 @Component({
   selector: "lsn-list-page",
@@ -22,7 +25,8 @@ export class ListPageComponent implements OnInit, AfterViewChecked  {
   constructor(
     private filmService: FilmService,
     private tmdbService: TMDBService,
-    private cdRef: ChangeDetectorRef) {
+    private cdRef: ChangeDetectorRef,
+    public dialog: DialogService) {
 
   }
 
@@ -31,7 +35,6 @@ export class ListPageComponent implements OnInit, AfterViewChecked  {
   }
 
   public search(term: string): void {
-    console.log("start searching")
     this.fetchedIndexes = [];
     this.searchPaged(term);
   }
@@ -63,6 +66,21 @@ export class ListPageComponent implements OnInit, AfterViewChecked  {
     return _.includes(this.fetchedIndexes, i);
   }
 
+  public delete(id: number): void {
+    const confirm: ConfirmConfig = {
+      title: "Are you sure you want to delete this movie",
+      ok: "yes",
+      close: "no"
+    };
+    this.dialog.confirm(confirm).subscribe((
+      // confirmed
+      ) => {
+      // if (confirmed) {
+        this.filmService.delete(id);
+      // }
+    });
+  }
+
   public getPosterPath(url: string, i: number) {
     if (i < 10 && !this.alreadyFetched(i)) {
       this.fetchedIndexes.push(i);
@@ -77,5 +95,5 @@ export class ListPageComponent implements OnInit, AfterViewChecked  {
         });
       }
       return ``;
-    }
+  }
 }

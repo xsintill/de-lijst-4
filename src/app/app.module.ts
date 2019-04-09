@@ -1,3 +1,4 @@
+import { DialogModule } from "./dialog/dialog.module";
 import { CommonModule } from "@angular/common";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
@@ -22,6 +23,8 @@ import { SideMenuComponent } from "./side-menu/side-menu.component";
 import { ListPageComponent } from "./list-page/list-page.component";
 import { EditPageComponent } from "./edit-page/edit-page.component";
 import { DebounceDirective } from "./directives/debounce.directive";
+import { DialogService } from "./dialog/dialog.service";
+import { MatDialogRef } from "@angular/material/dialog";
 
 const appRoutes: Routes = [
   { path: "list", component: ListPageComponent },
@@ -43,6 +46,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    DialogModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -56,7 +60,8 @@ const appRoutes: Routes = [
   providers: [
     DbAnalyticsService,
     PagingService,
-    HttpClientModule
+    HttpClientModule,
+    DialogService, {provide: MatDialogRef, useValue: {}},
   ],
 
   bootstrap: [AppComponent]

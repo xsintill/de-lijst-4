@@ -1,6 +1,6 @@
 // import { HttpClient } from "@angular/common/http";
 // import { Http } from "@angular/http";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 // import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
@@ -121,11 +121,15 @@ export class FilmService {
     }
 
     public delete(movieId: number) {
-        return this.http.delete(`${this.baseURL}delete/${movieId.toString()}`);
+        console.log(movieId);
+        const params = new HttpParams().set("movieId", movieId.toString());
+        return this.http.delete(`${this.baseURL}delete`, {params}).subscribe(() => {
+            console.log(2);
+        });
     }
 
     public add(film: Film): Promise<any> {
-        return this.http.post(`${this.baseURL}/Post`, film).toPromise();
+        return this.http.post(`${this.baseURL}Post`, film).toPromise();
     }
 }
 

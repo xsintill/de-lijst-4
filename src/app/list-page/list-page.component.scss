@@ -27,6 +27,13 @@
 }
 .lsn-row-poster{
     margin-right: 10px;
+    height: 184px !important; 
+    width: 120px !important; 
+    object-fit: contain !important;
+    border-radius:0% !important;
+}
+.lsn-row-poster:hover{
+    transform: scale(1.07);
 }
 .lsn-list-divider{
     color: black

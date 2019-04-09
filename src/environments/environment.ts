@@ -4,5 +4,6 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  tmdbApiKey: "17d13160c1c54b99aff6895097e2798c"
 };

@@ -10,9 +10,7 @@ import { MatIconRegistry } from "@angular/material";
 export class AppComponent {
   title = "app";
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    iconRegistry.addSvgIcon(
-        "history",
-        sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icons/go-back-in-history.svg")
-    );
+    iconRegistry.addSvgIcon("history", sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icons/go-back-in-history.svg"));
+    iconRegistry.addSvgIcon("bin", sanitizer.bypassSecurityTrustResourceUrl("assets/svg/icons/bin.svg"));
 }
 }

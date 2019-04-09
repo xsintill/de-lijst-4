@@ -10,21 +10,47 @@
         </mat-input-container>
     </div>
     <mat-list class="lsn-scrollable">
+        <mat-list-item *ngFor="let film of films ; trackBy: film?.Id;let i = index" class="lsn-film-item">
+            <img *ngIf="i < 10" 
+                 matListAvatar 
+                 src="{{film.poster_path || '' }} " 
+                 class="lsn-row-poster"
+                 (click)="gotoIMDB(film.Url)"
+            /> 
+            <h3 matLine 
+               fxFlex="80">
+               {{film.Title}} {{getPosterPath(film.Url, i)}}
+            </h3> 
+            <button (click)="delete(film.Id)" mat-icon-button >
+                <mat-icon svgIcon="bin"></mat-icon>
+            </button>
+        </mat-list-item>
+    </mat-list>
+    <!-- <mat-list class="lsn-scrollable">
             
         <mat-list-item *ngFor="let film of films ; trackBy: film?.Id;let i = index" 
                        class="lsn-film-item" 
                        fxLayout 
-                       fxLayoutAlign="start center" 
-                       (click)="gotoIMDB(film.Url)">
-            <img *ngIf="i < 10" 
-                 src="{{film.poster_path || '' }} " 
-                 fxFlex 
-                 class="lsn-row-poster"
-                 style="height: 184px; object-fit: contain;"
-            /> 
-                    {{film.Title}} {{getPosterPath(film.Url, i)}}
-            {{film}}
+                       fxLayoutAlign="start center">
+
+                           <img *ngIf="i < 10" 
+                                matListAvatar 
+                                src="{{film.poster_path || '' }} " 
+                                class="lsn-row-poster"
+                                (click)="gotoIMDB(film.Url)"
+                           /> 
+                           <div class="mat-list-text">
+                               <h3 matLine fxFlex="80">
+                                   {{film.Title}} {{getPosterPath(film.Url, i)}}
+                               </h3>        
+                           </div>
+        
+                           <button (click)="delete(film.Id)"
+                                    color="primary"
+                                    mat-icon-button>
+                               <mat-icon ></mat-icon>
+                           </button>
         </mat-list-item>
         <mat-divider class="lsn-list-divider"></mat-divider>
-    </mat-list>
+    </mat-list> -->
 </div>
