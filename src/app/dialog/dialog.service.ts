@@ -1,8 +1,11 @@
 import { FormGroup } from "@angular/forms";
 import { Type, Injectable } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { map } from "rxjs/operators";
+
 import { DialogComponent } from "./dialog.component";
 import { DialogFormComponent } from "./dialog-form.component";
+
 
 export interface AlertConfig {
     title?: string;
@@ -47,7 +50,9 @@ export interface AlertConfig {
         const dialogRef = this.dialog.open(DialogComponent,
           { width: "287px", data: confirm }
         );
-        return dialogRef.afterClosed().map(Boolean);
+        return dialogRef.afterClosed().pipe(
+          map(Boolean)
+        );
       }
 
       prompt(prompt: PromptConfig) {

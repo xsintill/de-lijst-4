@@ -1,4 +1,4 @@
-import { Subject } from "rxjs/Subject";
+import { Subject } from "rxjs";
 // import { IFilmDBAnalytics } from "./film.model";
 import { Injectable } from "@angular/core";
 

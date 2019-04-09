@@ -3,9 +3,8 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 
 // import { Observable } from "rxjs/Observable";
-import { Subject } from "rxjs/Subject";
+import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
-import "rxjs/add/operator/toPromise";
 
 import { PagingService } from "./paging.service";
 // import { log } from "util";

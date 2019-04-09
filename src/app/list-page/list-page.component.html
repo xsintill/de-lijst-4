@@ -1,13 +1,13 @@
 <div fxLayout="column">
     <div fxLayout>
-        <mat-input-container fxFlex="30" class="lsn-search-box">
+        <mat-form-field fxFlex="30" class="lsn-search-box">
             <input matInput 
             #searchBox 
             id="search-box" 
             placeholder="Search" 
             
             (keyup)="search(searchBox.value)">
-        </mat-input-container>
+        </mat-form-field>
     </div>
     <mat-list class="lsn-scrollable">
         <mat-list-item *ngFor="let film of films ; trackBy: film?.Id;let i = index" class="lsn-film-item">

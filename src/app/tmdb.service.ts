@@ -1,89 +1,89 @@
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-// import { Response } from "@angular/http";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+
 import { environment } from "../environments/environment";
 
 
 export class TMDBMovie {
-        public account_states: any;
+    public account_states: any;
 
-        public adult: boolean;
+    public adult: boolean;
 
-        public alternative_titles: any;
+    public alternative_titles: any;
 
-        public backdrop_path: string;
+    public backdrop_path: string;
 
-        public belongs_to_collection: any;
+    public belongs_to_collection: any;
 
-        public budget: number;
+    public budget: number;
 
-        public changes: any;
+    public changes: any;
 
-        public credits: any;
+    public credits: any;
 
-        public genres: any;
+    public genres: any;
 
-        public homepage: string;
+    public homepage: string;
 
-        public id: number;
+    public id: number;
 
-        public images: any;
+    public images: any;
 
-        public imdb_id: string;
+    public imdb_id: string;
 
-        public keywords: any;
+    public keywords: any;
 
-        public lists: any;
+    public lists: any;
 
-        public original_language: string;
+    public original_language: string;
 
-        public original_title: string;
+    public original_title: string;
 
-        public overview: string;
+    public overview: string;
 
-        public popularity: number;
+    public popularity: number;
 
-        public poster_path: string;
+    public poster_path: string;
 
-        public production_companies: any;
+    public production_companies: any;
 
-        public production_countries: any;
+    public production_countries: any;
 
-        public release_date?: Date;
+    public release_date?: Date;
 
-        public release_dates: any;
+    public release_dates: any;
 
-        public releases: any;
+    public releases: any;
 
-        public revenue: number;
+    public revenue: number;
 
-        public reviews: any;
+    public reviews: any;
 
-        public runtime?: number;
+    public runtime?: number;
 
-        public similar: any;
+    public similar: any;
 
-        public recommendations: any;
+    public recommendations: any;
 
-        public spoken_languages: any;
+    public spoken_languages: any;
 
-        public status: string;
+    public status: string;
 
-        public tagline: string;
+    public tagline: string;
 
-        public title: string;
+    public title: string;
 
-        public translations: any;
+    public translations: any;
 
-        public video: boolean;
+    public video: boolean;
 
-        public videos: any;
+    public videos: any;
 
-        public vote_average: number;
+    public vote_average: number;
 
-        public vote_count: number;
+    public vote_count: number;
 }
 
 @Injectable()
@@ -99,25 +99,34 @@ export class TMDBService {
     public getMovie(tmdbId: string): Observable<TMDBMovie> {
         console.log(`${this.url}movie/${tmdbId}?api_key=${environment.tmdbApiKey}`);
         return this.http.get(`${this.url}movie/${tmdbId}?api_key=${environment.tmdbApiKey}`)
-            .map((response: any) => {
-                console.log("response 1", response);
-                return response;
-            });
+            .pipe(
+                map((response: any) => {
+                    console.log("response 1", response);
+                    return response;
+                })
+            );
     }
     public getMovieByImdbId(imdbId: string): Observable<TMDBMovie> {
         return this.http.get(`${this.url}find/${imdbId}?api_key=${environment.tmdbApiKey}&external_source=imdb_id`)
-            .map((response: {movie_results: any[]}) => response.movie_results[0]);
+            .pipe(
+                map((response: { movie_results: any[] }) => response.movie_results[0])
+            );
     }
     public searchMovie(title: string): Observable<any> {
         return this.http.get(`
         ${this.url}search/movie?api_key=${environment.tmdbApiKey}&query=${title}&language=en-US&page=1&include_adult=true`)
-            .map((response: any) => {
-                console.log("response", response);
-                return response.results; });
+            .pipe(
+                map((response: any) => {
+                    console.log("response", response);
+                    return response.results;
+                })
+            );
     }
     public getPoster(imageSize: string, imageFileName: string): Observable<any> {
         return this.http.get(this.getPosterPath(imageSize, imageFileName))
-            .map((response: any) => response);
+            .pipe(
+                map((response: any) => response)
+            );
     }
     public getPosterPath(imageSize: string, imageFileName: string): string {
         return `http://image.tmdb.org/t/p/${imageSize}/${imageFileName}`;

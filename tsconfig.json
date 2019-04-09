@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -15,9 +16,6 @@
     "noUnusedParameters": true,
     "strictNullChecks": false,
     "target": "es5",
-    // "suppressImplicitAnyIndexErrors": true,
-    // "suppressExcessPropertyErrors": true,
-    // "noStrictGenericChecks": true,
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -26,7 +24,12 @@
       "dom"
     ],
     "plugins": [
-      { "name": "tslint-language-service"}
-    ]
+      {
+        "name": "tslint-language-service"
+      }
+    ],
+    "module": "es2015",
+    "baseUrl": "./"
+ 
   }
 }

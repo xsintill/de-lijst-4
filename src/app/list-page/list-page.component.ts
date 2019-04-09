@@ -5,7 +5,7 @@ import { FilmService } from "../film.service";
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import * as _ from "lodash";
 
-import { Subject } from "rxjs/Subject";
+import { Subject } from "rxjs";
 // import { MatDialog } from "@angular/material";
 import { DialogService } from "../dialog/dialog.service";
 

@@ -22,9 +22,9 @@ import { FooterComponent } from "./footer/footer.component";
 import { SideMenuComponent } from "./side-menu/side-menu.component";
 import { ListPageComponent } from "./list-page/list-page.component";
 import { EditPageComponent } from "./edit-page/edit-page.component";
-import { DebounceDirective } from "./directives/debounce.directive";
 import { DialogService } from "./dialog/dialog.service";
 import { MatDialogRef } from "@angular/material/dialog";
+import { DirectivesModule } from "./directives/directives.module";
 
 const appRoutes: Routes = [
   { path: "list", component: ListPageComponent },
@@ -40,8 +40,7 @@ const appRoutes: Routes = [
     FooterComponent,
     SideMenuComponent,
     ListPageComponent,
-    EditPageComponent,
-    DebounceDirective
+    EditPageComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +54,7 @@ const appRoutes: Routes = [
     CustomMaterialModule,
     RouterModule.forRoot(appRoutes),
     CommonModule,
+    DirectivesModule
 
   ],
   providers: [
