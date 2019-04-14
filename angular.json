@@ -48,7 +48,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng5-films4:build"
+            "browserTarget": "ng5-films4:build",
+            "proxyConfig": "./proxy.conf.json"
           },
           "configurations": {
             "production": {
