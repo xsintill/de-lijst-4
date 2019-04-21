@@ -28,7 +28,7 @@ import { DirectivesModule } from "./directives/directives.module";
 
 const appRoutes: Routes = [
   { path: "list", component: ListPageComponent },
-  { path: "edit/{:id}", component: EditPageComponent },
+  { path: "edit/:id", component: EditPageComponent },
   { path: "add", component: EditPageComponent, },
 ];
 

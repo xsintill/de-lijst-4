@@ -1,19 +1,19 @@
-<form>
+<form *ngIf="data">
     <mat-card fxFlex="50">
         <mat-card-content fxLayout="column">
             <mat-form-field fxFlex>
-                <input matInput placeholder="Title" 
-                [(ngModel)]="data.Title" 
-                
-                (blur)="retrieveResultsForTitle()" name="titleControl">
+                <input matInput placeholder="Title" [(ngModel)]="data.Title" (blur)="retrieveResultsForTitle()"
+                    name="titleControl">
                 <!--<mat-error *ngIf="titleControl.error.required">Title is required</mat-error>-->
             </mat-form-field>
             <mat-form-field fxFlex>
-                <input matInput placeholder="Url" [(ngModel)]="data.Url" (blur)="retrieveResultsForUrl()" name="urlControl">
+                <input matInput placeholder="Url" [(ngModel)]="data.Url" (blur)="retrieveResultsForUrl()"
+                    name="urlControl">
             </mat-form-field>
             <div fxFlex="10" fxLayout>
                 <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose date movie seen" name="seenAtControl" [(ngModel)]="data.SeenAt">
+                    <input matInput [matDatepicker]="picker" placeholder="Choose date movie seen" name="seenAtControl"
+                        [(ngModel)]="data.SeenAt">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 </mat-form-field>
                 <mat-datepicker #picker></mat-datepicker>
@@ -33,7 +33,7 @@
         </mat-card-actions>
     </mat-card>
     <div style="cursor: pointer;" (click)="openLink()">
-        <img fxFlex *ngIf="posterPath" style="margin:10px; width: 400px;height: 400px;object-fit: contain;" src="http://image.tmdb.org/t/p/w500/{{posterPath}}"
-        />
+        <img fxFlex *ngIf="posterPath" style="margin:10px; width: 400px;height: 400px;object-fit: contain;"
+            src="http://image.tmdb.org/t/p/w500/{{posterPath}}" />
     </div>
 </form>

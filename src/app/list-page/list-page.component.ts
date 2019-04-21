@@ -1,12 +1,13 @@
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import * as _ from "lodash";
+import { Subject } from "rxjs";
+
 import { ConfirmConfig } from "./../dialog/dialog.service";
 import { TMDBMovie } from "../tmdb.service";
 import { TMDBService } from "../tmdb.service";
 import { FilmService } from "../film.service";
-import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import * as _ from "lodash";
 
-import { Subject } from "rxjs";
-// import { MatDialog } from "@angular/material";
 import { DialogService } from "../dialog/dialog.service";
 
 @Component({
@@ -15,7 +16,7 @@ import { DialogService } from "../dialog/dialog.service";
   styleUrls: ["./list-page.component.scss"],
   providers: [FilmService, TMDBService]
 })
-export class ListPageComponent implements OnInit, AfterViewChecked  {
+export class ListPageComponent implements OnInit, AfterViewChecked {
   public fetchedIndexes: number[] = [];
   public searchPaged: Function;
   public films: any[] = [];
@@ -26,7 +27,9 @@ export class ListPageComponent implements OnInit, AfterViewChecked  {
     private filmService: FilmService,
     private tmdbService: TMDBService,
     private cdRef: ChangeDetectorRef,
-    public dialog: DialogService) {
+    public dialog: DialogService,
+    private router: Router
+    ) {
 
   }
 
@@ -72,13 +75,12 @@ export class ListPageComponent implements OnInit, AfterViewChecked  {
       ok: "yes",
       close: "no"
     };
-    this.dialog.confirm(confirm).subscribe((
-      // confirmed
-      ) => {
-      // if (confirmed) {
-        this.filmService.delete(id);
-      // }
+    this.dialog.confirm(confirm).subscribe(() => {
+      this.filmService.delete(id);
     });
+  }
+  public edit(id: number): void {
+    this.router.navigate([`edit/${id}`]);
   }
 
   public getPosterPath(url: string, i: number) {
@@ -93,7 +95,7 @@ export class ListPageComponent implements OnInit, AfterViewChecked  {
           }
           return ``;
         });
-      }
-      return ``;
+    }
+    return ``;
   }
 }

@@ -16,11 +16,14 @@
                  src="{{film.poster_path || '' }} " 
                  class="lsn-row-poster"
                  (click)="gotoIMDB(film.Url)"
-            /> 
-            <h3 matLine 
-               fxFlex="80">
-               {{film.Title}} {{getPosterPath(film.Url, i)}}
-            </h3> 
+            />
+                <h3 matLine 
+                   fxFlex="80">
+                   <div (click)="edit(film.Id)">
+
+                       {{film.Title}} {{getPosterPath(film.Url, i)}}
+                   </div>
+                </h3> 
             <button (click)="delete(film.Id)" mat-icon-button >
                 <mat-icon svgIcon="bin"></mat-icon>
             </button>

@@ -1,10 +1,11 @@
-import { FilmService } from "../film.service";
-
-// import { log } from "util";
-// import { Film, } from "../film.model";
-import { TMDBMovie, TMDBService } from "../tmdb.service";
 import { Component } from "@angular/core";
-// import { FormControl } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+
+import { FilmService } from "../film.service";
+import { TMDBMovie, TMDBService } from "../tmdb.service";
+import { IFilmProxy } from "../film.model";
 
 @Component({
     selector: "lsn-edit-page",
@@ -15,15 +16,27 @@ import { Component } from "@angular/core";
 export class EditPageComponent {
     public movie: TMDBMovie;
     public posterPath: string;
-    public data: any = {
-        Id: undefined,
-        Title: undefined,
-        SeenAt: new Date()
-    };
+    public data: IFilmProxy;
     constructor(
         private tmdb: TMDBService,
-        private filmService: FilmService) {
+        private filmService: FilmService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
+        const id = this.route.snapshot.params["id"];
+        if (id) {
+            this.filmService.getById(id).subscribe((response: IFilmProxy) => {
+                this.data = { ...response };
+            });
+        } else {
+            this.data.Id = undefined;
+            this.data.Title = undefined;
+            this.data.SeenAt = undefined;
+            this.data.SeenAt = new Date();
+        }
     }
+
+
     public retrieveResultsForUrl(): void {
         if (this.data.Url) {
             const imdbId = this.data.Url.slice(-9);
@@ -58,11 +71,29 @@ export class EditPageComponent {
         window.open(this.data.Url);
     }
     public saveMovie() {
-        this.filmService.add(this.data).then(() => {
-            this.data.Url = undefined;
-            this.data.Title = undefined;
-            this.data.SeenAt = new Date();
-            this.posterPath = undefined;
-        });
+        if (this.data.Id > 0) {
+            const data: any = {
+                Id: this.data.Id,
+                Title: this.data.Title,
+                SeenAt: this.data.SeenAt,
+                Url: this.data.Url
+            };
+            this.filmService.edit(data).then(() => {
+                this.router.navigate(["/list"]);
+            });
+        } else {
+            const data: any = {
+                Id: undefined,
+                Title: this.data.Title,
+                SeenAt: this.data.SeenAt,
+                Url: this.data.Url
+            };
+            this.filmService.add(data).then(() => {
+                this.data.Url = undefined;
+                this.data.Title = undefined;
+                this.data.SeenAt = new Date();
+                this.posterPath = undefined;
+            });
+        }
     }
 }

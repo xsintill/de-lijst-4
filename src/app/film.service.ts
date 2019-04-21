@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 
-import { Subject } from "rxjs";
+import { Subject, Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 
 import { PagingService } from "./paging.service";
@@ -47,11 +47,8 @@ export class FilmService {
     ) {
     }
 
-    public getById(id: number): Promise<IFilmProxy> {
-        return this.http
-            .get(this.baseURL + "proxy/" + id.toString())
-            .toPromise()
-            .then((response: any) => response._body);
+    public getById(id: number): Observable<IFilmProxy> {
+        return this.http.get<IFilmProxy>(this.baseURL + "proxy/" + id.toString());
     }
 
     public paged(pageSize: number, search: string): any {
@@ -106,6 +103,10 @@ export class FilmService {
 
     public add(film: Film): Promise<any> {
         return this.http.post(`${this.baseURL}Post`, film).toPromise();
+    }
+    
+    public edit(film: Film): Promise<any> {
+        return this.http.put(`${this.baseURL}Put`, film).toPromise();
     }
 }
 
