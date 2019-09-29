@@ -104,9 +104,14 @@ export class FilmService {
     public add(film: Film): Promise<any> {
         return this.http.post(`${this.baseURL}Post`, film).toPromise();
     }
-    
+
     public edit(film: Film): Promise<any> {
         return this.http.put(`${this.baseURL}Put`, film).toPromise();
+    }
+
+    public getIMDBnumber(url: string): string {
+        const regex = /[0-9]+$/g;
+        return `tt${url.match(regex)[0]}`;
     }
 }
 

@@ -1,7 +1,5 @@
 import { Component } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 
 import { FilmService } from "../film.service";
 import { TMDBMovie, TMDBService } from "../tmdb.service";
@@ -29,17 +27,18 @@ export class EditPageComponent {
                 this.data = { ...response };
             });
         } else {
-            this.data.Id = undefined;
-            this.data.Title = undefined;
-            this.data.SeenAt = undefined;
-            this.data.SeenAt = new Date();
+            this.data = {
+                Id: undefined,
+                Title: undefined,
+                SeenAt: new Date()
+            }
         }
     }
 
 
     public retrieveResultsForUrl(): void {
         if (this.data.Url) {
-            const imdbId = this.data.Url.slice(-9);
+            const imdbId = this.filmService.getIMDBnumber(this.data.Url);
             this.tmdb.getMovieByImdbId(imdbId).subscribe(
                 (movie: any) => {
                     this.posterPath = movie.movie_results[0].poster_path;

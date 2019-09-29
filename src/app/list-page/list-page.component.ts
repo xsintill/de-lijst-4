@@ -59,7 +59,7 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     // test if we have http or https protocol. if not ad it
     let url = "";
     if (!/^http[s]?:\/\//.test(imdbUrl)) {
-      url += "http://";
+      url += "https://";
     }
     url += imdbUrl;
     window.open(url, "_blank");
@@ -86,7 +86,8 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   public getPosterPath(url: string, i: number) {
     if (i < 10 && !this.alreadyFetched(i)) {
       this.fetchedIndexes.push(i);
-      return this.tmdbService.getMovieByImdbId(url.substr(-9)).subscribe(
+      const imdbId = this.filmService.getIMDBnumber(url);
+      return this.tmdbService.getMovieByImdbId(imdbId).subscribe(
         (movie: TMDBMovie) => {
           if (movie) {
             const posterPath = this.tmdbService.getPosterPath("w154", movie.poster_path);
