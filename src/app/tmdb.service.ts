@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
@@ -107,8 +107,10 @@ export class TMDBService {
             );
     }
     public getMovieByImdbId(imdbId: string): Observable<TMDBMovie> {
+        console.log(`${this.url}find/${imdbId}?api_key=${environment.tmdbApiKey}&external_source=imdb_id`)
         return this.http.get(`${this.url}find/${imdbId}?api_key=${environment.tmdbApiKey}&external_source=imdb_id`)
             .pipe(
+                tap((response: { movie_results: any[] }) => console.log(response.movie_results[0])),
                 map((response: { movie_results: any[] }) => response.movie_results[0])
             );
     }

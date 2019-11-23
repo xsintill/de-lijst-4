@@ -4,12 +4,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule, Routes } from "@angular/router";
-// import { MatToolbarModule, MatButtonModule, MatInputModule,
-//   MatListModule, MatDatepickerModule, MatNativeDateModule,
-//   MatIconModule, MatIconRegistry, MatTooltipModule } from "@angular/material";
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { PagingService } from "./paging.service";
@@ -29,7 +25,7 @@ import { DirectivesModule } from "./directives/directives.module";
 const appRoutes: Routes = [
   { path: "list", component: ListPageComponent },
   { path: "edit/:id", component: EditPageComponent },
-  { path: "add", component: EditPageComponent, },
+  { path: "add", component: EditPageComponent },
 ];
 
 @NgModule({
@@ -48,7 +44,6 @@ const appRoutes: Routes = [
     DialogModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     HttpClientModule,
     FlexLayoutModule,
     CustomMaterialModule,
