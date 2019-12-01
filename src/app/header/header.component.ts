@@ -1,25 +1,25 @@
-// import { CustomMaterialModule } from "../material/material.module";
-import { Component, OnInit, Input, Output } from "@angular/core";
-import { ThreeLetterPatternService } from "../three-letter-pattern.service";
-import * as _ from "lodash";
-import { IThreeLetterPattern } from "../three-letter-pattern.model";
+import { Component, OnInit, Input, Output } from '@angular/core';
+import * as _ from 'lodash';
+
+import { ThreeLetterPatternService } from '../three-letter-pattern.service';
+import { IThreeLetterPattern } from '../three-letter-pattern.model';
 
 
 @Component({
-  selector: "lsn-header",
-  templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"]
+  selector: 'lsn-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
   @Input()
   public x = 0;
   @Input()
-  public title = "De Lijst 4.1";
+  public title = 'De Lijst 4.1';
 
   @Output()
   public  fill() {
     let startAdding: boolean;
-    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
      _.each(alphabet, (letter1: string) => {
       _.each(alphabet, (letter2: string) => {
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
           };
           this.x++;
 
-          if (pattern.LetterPattern === "znf") {
+          if (pattern.LetterPattern === 'znf') {
             startAdding = true;
           }
           if (startAdding) {
@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
 
   @Output()
   public testLetterOccurence(): void {
-    this.threeLetterPattern.addOccurenceFrom("abc").subscribe();
+    this.threeLetterPattern.addOccurenceFrom('abc').subscribe();
   }
   constructor(private threeLetterPattern: ThreeLetterPatternService) {
    }

@@ -1,19 +1,19 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import * as _ from "lodash";
-import { Subject } from "rxjs";
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import * as _ from 'lodash';
+import { Subject } from 'rxjs';
 
-import { ConfirmConfig } from "./../dialog/dialog.service";
-import { TMDBMovie } from "../tmdb.service";
-import { TMDBService } from "../tmdb.service";
-import { FilmService } from "../film.service";
+import { ConfirmConfig } from './../dialog/dialog.service';
+import { TMDBMovie } from '../tmdb.service';
+import { TMDBService } from '../tmdb.service';
+import { FilmService } from '../film.service';
 
-import { DialogService } from "../dialog/dialog.service";
+import { DialogService } from '../dialog/dialog.service';
 
 @Component({
-  selector: "lsn-list-page",
-  templateUrl: "./list-page.component.html",
-  styleUrls: ["./list-page.component.scss"],
+  selector: 'lsn-list-page',
+  templateUrl: './list-page.component.html',
+  styleUrls: ['./list-page.component.scss'],
   providers: [FilmService, TMDBService]
 })
 export class ListPageComponent implements OnInit, AfterViewChecked {
@@ -49,20 +49,20 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
           this.films = response.Data;
         });
     }, 300, {
-        "trailing": true
+        'trailing': true
       });
 
-    this.searchPaged("");
+    this.searchPaged('');
   }
 
   public gotoIMDB(imdbUrl: string): void {
     // test if we have http or https protocol. if not ad it
-    let url = "";
+    let url = '';
     if (!/^http[s]?:\/\//.test(imdbUrl)) {
-      url += "https://";
+      url += 'https://';
     }
     url += imdbUrl;
-    window.open(url, "_blank");
+    window.open(url, '_blank');
   }
 
   public alreadyFetched(i: number) {
@@ -71,9 +71,9 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
 
   public delete(id: number): void {
     const confirm: ConfirmConfig = {
-      title: "Are you sure you want to delete this movie",
-      ok: "yes",
-      close: "no"
+      title: 'Are you sure you want to delete this movie',
+      ok: 'yes',
+      close: 'no'
     };
     this.dialog.confirm(confirm).subscribe(() => {
       this.filmService.delete(id);
@@ -90,7 +90,7 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
       return this.tmdbService.getMovieByImdbId(imdbId).subscribe(
         (movie: TMDBMovie) => {
           if (movie) {
-            const posterPath = this.tmdbService.getPosterPath("w154", movie.poster_path);
+            const posterPath = this.tmdbService.getPosterPath('w154', movie.poster_path);
             this.films[i].poster_path = posterPath;
             return posterPath;
           }

@@ -1,31 +1,31 @@
-import { DialogModule } from "./dialog/dialog.module";
-import { CommonModule } from "@angular/common";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
-import { RouterModule, Routes } from "@angular/router";
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 
-import { PagingService } from "./paging.service";
-import { DbAnalyticsService } from "./db-analytics.service";
-import { AppComponent } from "./app.component";
-import { CustomMaterialModule } from "./material/material.module";
-import { HeaderComponent } from "./header/header.component";
-import { MainContentComponent } from "./main-content/main-content.component";
-import { FooterComponent } from "./footer/footer.component";
-import { SideMenuComponent } from "./side-menu/side-menu.component";
-import { ListPageComponent } from "./list-page/list-page.component";
-import { EditPageComponent } from "./edit-page/edit-page.component";
-import { DialogService } from "./dialog/dialog.service";
-import { MatDialogRef } from "@angular/material/dialog";
-import { DirectivesModule } from "./directives/directives.module";
+import { AppComponent } from './app.component';
+import { DbAnalyticsService } from './db-analytics.service';
+import { DialogModule } from './dialog/dialog.module';
+import { DialogService } from './dialog/dialog.service';
+import { DirectivesModule } from './directives/directives.module';
+import { EditPageComponent } from './edit-page/edit-page.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { ListPageComponent } from './list-page/list-page.component';
+import { MainContentComponent } from './main-content/main-content.component';
+import { CustomMaterialModule } from './material/material.module';
+import { PagingService } from './paging.service';
+import { SideMenuComponent } from './side-menu/side-menu.component';
 
 const appRoutes: Routes = [
-  { path: "list", component: ListPageComponent },
-  { path: "edit/:id", component: EditPageComponent },
-  { path: "add", component: EditPageComponent },
+  { path: 'list', component: ListPageComponent },
+  { path: 'edit/:id', component: EditPageComponent },
+  { path: 'add', component: EditPageComponent },
 ];
 
 @NgModule({

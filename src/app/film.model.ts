@@ -1,5 +1,5 @@
 
-import { Genres } from "./genres.enumeration";
+import { Genres } from './genres.enumeration';
 
 export interface IEntity {
     Id: number;
@@ -61,20 +61,3 @@ export class FilmProxy implements IFilmProxy, IFilmDBAnalytics {
         this.Rating = 7;
     }
 }
-
-    //  class FilmPagedProxy implements IFilmProxy {
-    //     public Id: number;
-    //     public Title: string;
-    //     public Url: string;
-    //     public SeenAt: Date;
-    //     public Genres: Genres;
-    //     public Rating: number;
-    //     public Image: ArrayBuffer;
-    //     public ImageId: number;
-
-    //     constructor() {
-    //         this.Id = 0;
-    //         this.SeenAt = new Date();
-    //         this.Rating = 7;
-    //     }
-    // }

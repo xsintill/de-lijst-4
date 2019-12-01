@@ -1,13 +1,14 @@
-import { PagingService } from "../paging.service";
-import { IFilmDBAnalytics } from "../film.model";
-import { DbAnalyticsService } from "./../db-analytics.service";
-import { FilmService, IPaging } from "./../film.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+
+import { DbAnalyticsService } from './../db-analytics.service';
+import { IFilmDBAnalytics } from '../film.model';
+import { FilmService, IPaging } from './../film.service';
+import { PagingService } from '../paging.service';
 
 @Component({
-  selector: "lsn-footer",
-  templateUrl: "./footer.component.html",
-  styleUrls: ["./footer.component.scss"],
+  selector: 'lsn-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss'],
   providers: [
     FilmService
   ]
@@ -38,7 +39,7 @@ export class FooterComponent implements OnInit {
         `Movies seen count: ${this.dbAnalytics.MoviesSeenCount},
          Movies in Database: ${this.dbAnalytics.MoviesInDBCount},
          Movies seen in database since the crash: ${this.dbAnalytics.MoviesSeenInDBSinceCrashCount},
-         Movies missing in database: ${this.dbAnalytics.MoviesSeenNotInDBCount}` : "";
+         Movies missing in database: ${this.dbAnalytics.MoviesSeenNotInDBCount}` : '';
     }
 
   ngOnInit() {

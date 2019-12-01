@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-import { IThreeLetterPattern } from "./three-letter-pattern.model";
+import { IThreeLetterPattern } from './three-letter-pattern.model';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ThreeLetterPatternService {
-  private baseURL = "/api/ThreeLetterPatterns";
+  private baseURL = '/api/ThreeLetterPatterns';
 
   constructor(private http: HttpClient) { }
 

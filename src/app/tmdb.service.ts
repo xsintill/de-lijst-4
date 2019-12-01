@@ -1,9 +1,9 @@
-import { Observable } from "rxjs";
-import { map, tap } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
-import { environment } from "../environments/environment";
+import { environment } from '../environments/environment';
 
 
 export class TMDBMovie {
@@ -89,7 +89,7 @@ export class TMDBMovie {
 @Injectable()
 export class TMDBService {
     public get url(): string {
-        return "https://api.themoviedb.org/3/";
+        return 'https://api.themoviedb.org/3/';
     }
 
     constructor(
@@ -101,13 +101,11 @@ export class TMDBService {
         return this.http.get(`${this.url}movie/${tmdbId}?api_key=${environment.tmdbApiKey}`)
             .pipe(
                 map((response: any) => {
-                    console.log("response 1", response);
                     return response;
                 })
             );
     }
     public getMovieByImdbId(imdbId: string): Observable<TMDBMovie> {
-        console.log(`${this.url}find/${imdbId}?api_key=${environment.tmdbApiKey}&external_source=imdb_id`)
         return this.http.get(`${this.url}find/${imdbId}?api_key=${environment.tmdbApiKey}&external_source=imdb_id`)
             .pipe(
                 tap((response: { movie_results: any[] }) => console.log(response.movie_results[0])),
@@ -119,7 +117,7 @@ export class TMDBService {
         ${this.url}search/movie?api_key=${environment.tmdbApiKey}&query=${title}&language=en-US&page=1&include_adult=true`)
             .pipe(
                 map((response: any) => {
-                    console.log("response", response);
+                    console.log('response', response);
                     return response.results;
                 })
             );

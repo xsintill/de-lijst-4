@@ -1,14 +1,14 @@
-import { Component } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { FilmService } from "../film.service";
-import { TMDBMovie, TMDBService } from "../tmdb.service";
-import { IFilmProxy } from "../film.model";
+import { FilmService } from '../film.service';
+import { TMDBMovie, TMDBService } from '../tmdb.service';
+import { IFilmProxy } from '../film.model';
 
 @Component({
-    selector: "lsn-edit-page",
-    templateUrl: "./edit-page.component.html",
-    styleUrls: ["./edit-page.component.scss"],
+    selector: 'lsn-edit-page',
+    templateUrl: './edit-page.component.html',
+    styleUrls: ['./edit-page.component.scss'],
     providers: [TMDBService, FilmService]
 })
 export class EditPageComponent {
@@ -21,7 +21,7 @@ export class EditPageComponent {
         private route: ActivatedRoute,
         private router: Router
     ) {
-        const id = this.route.snapshot.params["id"];
+        const id = this.route.snapshot.params['id'];
         if (id) {
             this.filmService.getById(id).subscribe((response: IFilmProxy) => {
                 this.data = { ...response };
@@ -31,7 +31,7 @@ export class EditPageComponent {
                 Id: undefined,
                 Title: undefined,
                 SeenAt: new Date()
-            }
+            };
         }
     }
 
@@ -55,7 +55,7 @@ export class EditPageComponent {
             this.tmdb.searchMovie(this.data.Title).subscribe((response) => {
                 this.tmdb.getMovie(response[0].id).subscribe(
                     (movie: TMDBMovie) => {
-                        console.log("movie", movie);
+                        console.log('movie', movie);
                         if (movie) {
                             this.movie = movie;
                             this.data.Url = `http://www.imdb.com/title/${movie.imdb_id}`;
@@ -78,7 +78,7 @@ export class EditPageComponent {
                 Url: this.data.Url
             };
             this.filmService.edit(data).then(() => {
-                this.router.navigate(["/list"]);
+                this.router.navigate(['/list']);
             });
         } else {
             const data: any = {

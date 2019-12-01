@@ -1,19 +1,11 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    // ComponentFactoryResolver,
     Inject
-    // Input,
-    // Type,
-    // ViewChild,
-    // ViewContainerRef
-} from "@angular/core";
-// import { FormGroup } from "@angular/forms";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
+} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import {
-    // FormComponent,
-    PromptConfig } from "./dialog.service";
+import { PromptConfig } from './dialog.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,12 +1,12 @@
-import { Directive, Input, OnInit, ComponentFactoryResolver, ComponentRef, ViewContainerRef, Type } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { Directive, Input, OnInit, ComponentFactoryResolver, ComponentRef, ViewContainerRef, Type } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
-import { FormComponent } from "./dialog.service";
+import { FormComponent } from './dialog.service';
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: "[dialogContent]",
-    exportAs: "dialogContent"
+    selector: '[dialogContent]',
+    exportAs: 'dialogContent'
 })
 export class DialogContentDirective implements OnInit {
 

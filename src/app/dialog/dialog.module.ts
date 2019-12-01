@@ -1,18 +1,16 @@
-import { CommonModule } from "@angular/common";
-import { NgModule
-    // , ModuleWithProviders
-} from "@angular/core";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import {
   MatButtonModule,
   MatFormFieldModule,
   MatDialogModule,
   MatInputModule
-} from "@angular/material";
+} from '@angular/material';
 
-import { DialogContentDirective } from "./dialog-content.directive";
+import { DialogContentDirective } from './dialog-content.directive';
 
-import { DialogFormComponent } from "./dialog-form.component";
-import { DialogComponent } from "./dialog.component";
+import { DialogFormComponent } from './dialog-form.component';
+import { DialogComponent } from './dialog.component';
 
 @NgModule({
     imports: [

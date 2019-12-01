@@ -1,4 +1,4 @@
-import { IEntity } from "./film.model";
+import { IEntity } from './film.model';
 
 export interface IThreeLetterPattern extends IEntity {
     LetterPattern: string;

@@ -1,11 +1,10 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Subject, Observable } from 'rxjs';
 
-import { Subject, Observable } from "rxjs";
-import { Injectable } from "@angular/core";
-
-import { PagingService } from "./paging.service";
-import { DbAnalyticsService } from "./db-analytics.service";
-import { Film, IFilmDBAnalytics, IFilmProxy } from "./film.model";
+import { DbAnalyticsService } from './db-analytics.service';
+import { Film, IFilmDBAnalytics, IFilmProxy } from './film.model';
+import { PagingService } from './paging.service';
 
 export interface IPaging {
     PagingCount: number;
@@ -16,7 +15,7 @@ export interface IPaging {
 
 @Injectable()
 export class FilmService {
-    private baseURL = "/api/films2/";
+    private baseURL = '/api/films2/';
 
     // public dbAnalytics1: Observable<any> =  Observable.create((obs) => {
     //     let ana: IFilmDBAnalytics = {
@@ -48,15 +47,15 @@ export class FilmService {
     }
 
     public getById(id: number): Observable<IFilmProxy> {
-        return this.http.get<IFilmProxy>(this.baseURL + "proxy/" + id.toString());
+        return this.http.get<IFilmProxy>(this.baseURL + 'proxy/' + id.toString());
     }
 
     public paged(pageSize: number, search: string): any {
         let url: string;
-        if (search === "") {
-          url = this.baseURL + "paged/descending/1/" + pageSize.toString();
+        if (search === '') {
+          url = this.baseURL + 'paged/descending/1/' + pageSize.toString();
         } else {
-          url = this.baseURL + "paged/descending/1/" + pageSize.toString() + "/" + search;
+          url = this.baseURL + 'paged/descending/1/' + pageSize.toString() + '/' + search;
         }
         return this.http
             .get(url)
@@ -81,16 +80,16 @@ export class FilmService {
     }
 
     public noPoster(page: number, pageSize: number) {
-        return this.http.get(this.baseURL + "NoPoster/" + page + "/" + pageSize);
+        return this.http.get(this.baseURL + 'NoPoster/' + page + '/' + pageSize);
     }
 
     public pagedProxy(search: string, page: number, pageSize: number) {
         let tempsearchUrl: string;
-        if (search === "") {
-            tempsearchUrl = this.baseURL + "ProxyPaged/descending/" + page + "/" + pageSize;
+        if (search === '') {
+            tempsearchUrl = this.baseURL + 'ProxyPaged/descending/' + page + '/' + pageSize;
 
         } else {
-            tempsearchUrl = this.baseURL + "ProxyPaged/descending/" + page + "/" + pageSize + "/" + search;
+            tempsearchUrl = this.baseURL + 'ProxyPaged/descending/' + page + '/' + pageSize + '/' + search;
         }
         return this.http.get(tempsearchUrl).toPromise();
     }

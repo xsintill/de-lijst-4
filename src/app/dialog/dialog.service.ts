@@ -1,10 +1,10 @@
-import { FormGroup } from "@angular/forms";
-import { Type, Injectable } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { map } from "rxjs/operators";
+import { FormGroup } from '@angular/forms';
+import { Type, Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs/operators';
 
-import { DialogComponent } from "./dialog.component";
-import { DialogFormComponent } from "./dialog-form.component";
+import { DialogComponent } from './dialog.component';
+import { DialogFormComponent } from './dialog-form.component';
 
 
 export interface AlertConfig {
@@ -41,14 +41,14 @@ export interface AlertConfig {
 
       alert(alert: AlertConfig) {
         const dialogRef = this.dialog.open(DialogComponent,
-          { width: "287px", data: alert }
+          { width: '287px', data: alert }
         );
         return dialogRef.afterClosed();
       }
 
       confirm(confirm: ConfirmConfig) {
         const dialogRef = this.dialog.open(DialogComponent,
-          { width: "287px", data: confirm }
+          { width: '287px', data: confirm }
         );
         return dialogRef.afterClosed().pipe(
           map(Boolean)
@@ -57,7 +57,7 @@ export interface AlertConfig {
 
       prompt(prompt: PromptConfig) {
         const dialogRef = this.dialog.open(DialogFormComponent,
-          { width: "287px", data: prompt }
+          { width: '287px', data: prompt }
         );
         return (<any>dialogRef.afterClosed()).filter(Boolean);
       }
