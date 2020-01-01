@@ -61,18 +61,9 @@ export class FilmService {
             .get(url)
             .toPromise()
             .then((response: IFilmDBAnalytics & { Paging: IPaging } ) => {
-                const ana: IFilmDBAnalytics = {
-                    MoviesInDBCount: response.MoviesInDBCount,
-                    MoviesSeenCount: response.MoviesSeenCount,
-                    MoviesSeenInDBSinceCrashCount: response.MoviesSeenInDBSinceCrashCount,
-                    MoviesSeenNotInDBCount: response.MoviesSeenNotInDBCount
-                };
-                const paging: IPaging = {
-                    PageNo: response.Paging.PageNo,
-                    PageSize: response.Paging.PageSize,
-                    PagingCount: response.Paging.PagingCount,
-                    TotalRecordCount: response.Paging.TotalRecordCount
-                };
+                const ana: IFilmDBAnalytics = { ...response };
+                const paging: IPaging = { ...response.Paging };
+                
                 this.pagingService.publish(paging);
                 this.dbAnalyticsService.publish(ana);
                 return response;

@@ -4,7 +4,7 @@ var iisExpressExe = 'C:\\Program Files (x86)\\IIS Express\\iisexpress.exe';
 
 var args = [
     '/port:65395',
-    '/path:C:\\Users\\xsintill\\Documents\\Visual Studio 2015\\Projects\\de-lijst-3\\de-lijst-3\\FilmsApi'
+    '/path:C:\\dev\\Visual Studio 2017\\de-lijst-3\\de-lijst-3\\FilmsApi'
 ];
 
 var childProcess = execFile(iisExpressExe, args, {});

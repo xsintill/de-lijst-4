@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { DbAnalyticsService } from './../db-analytics.service';
 import { IFilmDBAnalytics } from '../film.model';
@@ -13,7 +13,7 @@ import { PagingService } from '../paging.service';
     FilmService
   ]
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   public dbAnalytics: IFilmDBAnalytics;
   public filteredFilmsTotal: number;
 
@@ -32,7 +32,6 @@ export class FooterComponent implements OnInit {
           this.filteredFilmsTotal = filteredFilmsTotal.TotalRecordCount;
         }
       });
-
   }
     public getTooltip(): string {
       return (this.dbAnalytics) ?
@@ -41,7 +40,4 @@ export class FooterComponent implements OnInit {
          Movies seen in database since the crash: ${this.dbAnalytics.MoviesSeenInDBSinceCrashCount},
          Movies missing in database: ${this.dbAnalytics.MoviesSeenNotInDBCount}` : '';
     }
-
-  ngOnInit() {
-  }
 }

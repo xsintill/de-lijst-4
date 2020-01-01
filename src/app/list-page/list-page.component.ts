@@ -22,7 +22,6 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   public films: any[] = [];
   public searchText = new Subject<string>();
 
-
   constructor(
     private filmService: FilmService,
     private tmdbService: TMDBService,
@@ -30,7 +29,6 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     public dialog: DialogService,
     private router: Router
     ) {
-
   }
 
   ngAfterViewChecked() {
