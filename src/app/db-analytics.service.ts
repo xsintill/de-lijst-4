@@ -3,10 +3,10 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class DbAnalyticsService {
-    public _subject = new Subject<object>();
-    public event = this._subject.asObservable();
+  private _subject = new Subject<object>();
+  public event$ = this._subject.asObservable();
 
-    public publish(data: any) {
-        this._subject.next(data);
-    }
+  public publish(data: any) {
+    this._subject.next(data);
+  }
 }

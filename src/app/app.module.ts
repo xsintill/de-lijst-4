@@ -50,15 +50,13 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     CommonModule,
     DirectivesModule
-
   ],
   providers: [
     DbAnalyticsService,
     PagingService,
     HttpClientModule,
-    DialogService, {provide: MatDialogRef, useValue: {}},
+    DialogService, { provide: MatDialogRef, useValue: {} },
   ],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }

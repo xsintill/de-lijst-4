@@ -1,15 +1,11 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Inject
-} from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { PromptConfig } from './dialog.service';
+import { PromptConfig } from './prompt-config.type';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
     <h2
         *ngIf="dialog.title"
         mat-dialog-title>
@@ -41,13 +37,12 @@ import { PromptConfig } from './dialog.service';
     `
 })
 export class DialogFormComponent {
-    get dialog(): PromptConfig {
-        return this.data;
-    }
+  get dialog(): PromptConfig {
+    return this.data;
+  }
 
-    constructor(
-        @Inject(MAT_DIALOG_DATA) public data: PromptConfig,
-        public dialogRef: MatDialogRef<DialogFormComponent>
-    ) {}
-
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: PromptConfig,
+    public dialogRef: MatDialogRef<DialogFormComponent>,
+  ) { }
 }

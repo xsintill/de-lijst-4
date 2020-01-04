@@ -1,37 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { DbAnalyticsService } from './db-analytics.service';
-import { Film, IFilmDBAnalytics, IFilmProxy } from './film.model';
+import { Film } from './film';
+import { IFilmDBAnalytics } from './film-db-analytics.type';
+import { IFilmProxy } from './film-proxy.type';
 import { PagingService } from './paging.service';
-
-export interface IPaging {
-    PagingCount: number;
-    PageNo: number;
-    PageSize: number;
-    TotalRecordCount: number;
-}
+import { IPaging } from './paging.type';
 
 @Injectable()
 export class FilmService {
     private baseURL = '/api/films2/';
 
-    // public dbAnalytics1: Observable<any> =  Observable.create((obs) => {
-    //     let ana: IFilmDBAnalytics = {
-    //         MoviesInDBCount: undefined,
-    //         MoviesSeenCount: undefined,
-    //         MoviesSeenInDBSinceCrashCount: undefined,
-    //         MoviesSeenNotInDBCount: undefined
-    //     }
-    //     obs.next(ana);
-    //     // obs.complete();
-    // });
-    // public dbAnalyticsMerged: Subject<any> = new Subject();
-    // public dbAnalytics2: Observable<any>;
-
-
-    public _subject = new Subject<IPaging>();
+    private _subject = new Subject<IPaging>();
     public event = this._subject.asObservable();
 
     public publish(data: IPaging) {
@@ -40,8 +22,7 @@ export class FilmService {
 
     constructor(
         private http: HttpClient,
-        private dbAnalyticsService: DbAnalyticsService
-        ,
+        private dbAnalyticsService: DbAnalyticsService,
         private pagingService: PagingService
     ) {
     }
@@ -63,7 +44,7 @@ export class FilmService {
             .then((response: IFilmDBAnalytics & { Paging: IPaging } ) => {
                 const ana: IFilmDBAnalytics = { ...response };
                 const paging: IPaging = { ...response.Paging };
-                
+
                 this.pagingService.publish(paging);
                 this.dbAnalyticsService.publish(ana);
                 return response;
@@ -86,9 +67,7 @@ export class FilmService {
     }
 
     public delete(movieId: number) {
-        return this.http.delete(`${this.baseURL}delete/${movieId}`).subscribe(() => {
-
-        });
+        return this.http.delete(`${this.baseURL}delete/${movieId}`).subscribe();
     }
 
     public add(film: Film): Promise<any> {
@@ -104,4 +83,3 @@ export class FilmService {
         return `tt${url.match(regex)[0]}`;
     }
 }
-

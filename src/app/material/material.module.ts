@@ -1,17 +1,17 @@
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import {
-  MatToolbarModule,
-  MatTooltipModule,
   MatButtonModule,
+  MatCardModule,
+  MatDatepickerModule,
+  MatDividerModule,
+  MatIconModule,
   MatInputModule,
   MatListModule,
-  MatDatepickerModule,
   MatNativeDateModule,
-  MatIconModule,
-  MatCardModule,
-  MatDividerModule
+  MatToolbarModule,
+  MatTooltipModule
 } from '@angular/material';
 
 @NgModule({

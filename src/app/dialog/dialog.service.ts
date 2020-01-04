@@ -1,65 +1,38 @@
-import { FormGroup } from '@angular/forms';
-import { Type, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
 
-import { DialogComponent } from './dialog.component';
+import { AlertConfig } from './alert-config.type';
+import { ConfirmConfig } from './confirm-config.type';
 import { DialogFormComponent } from './dialog-form.component';
+import { DialogComponent } from './dialog.component';
+import { PromptConfig } from './prompt-config.type';
 
+@Injectable()
+export class DialogService {
+  constructor(private dialog: MatDialog) { }
 
-export interface AlertConfig {
-    title?: string;
-    content?: string;
-    close: string;
+  alert(alert: AlertConfig) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '287px',
+      data: alert
+    });
+    return dialogRef.afterClosed();
   }
 
-  export interface ConfirmConfig {
-    title?: string;
-    content?: string;
-    ok?: string;
-    close: string;
+  confirm(confirm: ConfirmConfig) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '287px',
+      data: confirm
+    });
+    return dialogRef.afterClosed().pipe(map(Boolean));
   }
 
-  export interface FormComponent {
-      form: FormGroup;
+  prompt(prompt: PromptConfig) {
+    const dialogRef = this.dialog.open(DialogFormComponent, {
+      width: '287px',
+      data: prompt
+    });
+    return (dialogRef.afterClosed() as any).filter(Boolean);
   }
-
-  export interface PromptConfig {
-    formComponent: Type<FormComponent>;
-    title?: string;
-    content?: string;
-    ok?: string;
-    close: string;
-  }
-
-  @Injectable()
-  export class DialogService {
-
-      constructor(
-          private dialog: MatDialog
-      ) {}
-
-      alert(alert: AlertConfig) {
-        const dialogRef = this.dialog.open(DialogComponent,
-          { width: '287px', data: alert }
-        );
-        return dialogRef.afterClosed();
-      }
-
-      confirm(confirm: ConfirmConfig) {
-        const dialogRef = this.dialog.open(DialogComponent,
-          { width: '287px', data: confirm }
-        );
-        return dialogRef.afterClosed().pipe(
-          map(Boolean)
-        );
-      }
-
-      prompt(prompt: PromptConfig) {
-        const dialogRef = this.dialog.open(DialogFormComponent,
-          { width: '287px', data: prompt }
-        );
-        return (<any>dialogRef.afterClosed()).filter(Boolean);
-      }
-
-  }
+}

@@ -1,29 +1,28 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import * as _ from 'lodash';
 
-import { ThreeLetterPatternService } from '../three-letter-pattern.service';
 import { IThreeLetterPattern } from '../three-letter-pattern.model';
-
+import { ThreeLetterPatternService } from '../three-letter-pattern.service';
 
 @Component({
   selector: 'lsn-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   @Input()
   public x = 0;
   @Input()
   public title = 'De Lijst 4.1';
 
   @Output()
-  public  fill() {
+  public fill() {
     let startAdding: boolean;
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
-     _.each(alphabet, (letter1: string) => {
+    _.each(alphabet, (letter1: string) => {
       _.each(alphabet, (letter2: string) => {
-         _.each(alphabet, (letter3: string) => {
+        _.each(alphabet, (letter3: string) => {
           const pattern: IThreeLetterPattern = {
             LetterPattern: `${letter1}${letter2}${letter3}`,
             CreateTimeStamp: new Date(),
@@ -37,7 +36,7 @@ export class HeaderComponent implements OnInit {
           }
           if (startAdding) {
 
-             this.threeLetterPattern.add(pattern);
+            this.threeLetterPattern.add(pattern);
           }
         });
       });
@@ -49,9 +48,7 @@ export class HeaderComponent implements OnInit {
   public testLetterOccurence(): void {
     this.threeLetterPattern.addOccurenceFrom('abc').subscribe();
   }
-  constructor(private threeLetterPattern: ThreeLetterPatternService) {
-   }
 
-  ngOnInit() {
+  constructor(private threeLetterPattern: ThreeLetterPatternService) {
   }
 }

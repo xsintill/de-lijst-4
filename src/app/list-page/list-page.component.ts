@@ -3,12 +3,11 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 
-import { ConfirmConfig } from './../dialog/dialog.service';
-import { TMDBMovie } from '../tmdb.service';
-import { TMDBService } from '../tmdb.service';
-import { FilmService } from '../film.service';
-
+import { ConfirmConfig } from '../dialog/confirm-config.type';
 import { DialogService } from '../dialog/dialog.service';
+import { FilmService } from '../film.service';
+import { ITMDBMovie } from '../tmdb-movie.type';
+import { TMDBService } from '../tmdb.service';
 
 @Component({
   selector: 'lsn-list-page',
@@ -18,7 +17,7 @@ import { DialogService } from '../dialog/dialog.service';
 })
 export class ListPageComponent implements OnInit, AfterViewChecked {
   public fetchedIndexes: number[] = [];
-  public searchPaged: Function;
+  public searchPaged: (term: string) => void;
   public films: any[] = [];
   public searchText = new Subject<string>();
 
@@ -28,8 +27,7 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     private cdRef: ChangeDetectorRef,
     public dialog: DialogService,
     private router: Router
-    ) {
-  }
+  ) { }
 
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
@@ -39,16 +37,19 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     this.fetchedIndexes = [];
     this.searchPaged(term);
   }
-  public ngOnInit() {
-    this.searchPaged = _.debounce((term: string) => {
 
-      this.filmService.paged(10, term)
-        .then((response: any) => {
+  public ngOnInit() {
+    this.searchPaged = _.debounce(
+      (term: string) => {
+        this.filmService.paged(10, term).then((response: any) => {
           this.films = response.Data;
         });
-    }, 300, {
-        'trailing': true
-      });
+      },
+      300,
+      {
+        trailing: true
+      }
+    );
 
     this.searchPaged('');
   }
@@ -77,6 +78,7 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
       this.filmService.delete(id);
     });
   }
+
   public edit(id: number): void {
     this.router.navigate([`edit/${id}`]);
   }
@@ -85,10 +87,14 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     if (i < 10 && !this.alreadyFetched(i)) {
       this.fetchedIndexes.push(i);
       const imdbId = this.filmService.getIMDBnumber(url);
-      return this.tmdbService.getMovieByImdbId(imdbId).subscribe(
-        (movie: TMDBMovie) => {
+      return this.tmdbService
+        .getMovieByImdbId(imdbId)
+        .subscribe((movie: ITMDBMovie) => {
           if (movie) {
-            const posterPath = this.tmdbService.getPosterPath('w154', movie.poster_path);
+            const posterPath = this.tmdbService.getPosterPath(
+              'w154',
+              movie.poster_path
+            );
             this.films[i].poster_path = posterPath;
             return posterPath;
           }

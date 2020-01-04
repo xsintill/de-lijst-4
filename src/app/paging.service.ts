@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { IPaging } from './film.service';
+import { IPaging } from './paging.type';
 
 @Injectable()
 export class PagingService {

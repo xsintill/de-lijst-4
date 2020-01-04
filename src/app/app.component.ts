@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'lsn-root',
@@ -8,9 +8,10 @@ import { MatIconRegistry } from '@angular/material';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  public title = 'app';
+
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon('history', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icons/go-back-in-history.svg'));
     iconRegistry.addSvgIcon('bin', sanitizer.bypassSecurityTrustResourceUrl('assets/svg/icons/bin.svg'));
-}
+  }
 }
