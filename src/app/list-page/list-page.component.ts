@@ -2,6 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { DbAnalyticsService } from '../db-analytics.service';
 import { ConfirmConfig } from '../dialog/confirm-config.type';
@@ -9,8 +10,9 @@ import { DialogService } from '../dialog/dialog.service';
 import { FilmDBAnalyticsAndPaging } from '../film-db-analytics-and-paging.type';
 import { FilmService } from '../film.service';
 import { PagingService } from '../paging.service';
-import { ITMDBMovie } from '../tmdb-movie.type';
 import { TMDBService } from '../tmdb.service';
+import { ListPagePresenter } from './list-page.presenter';
+import { IPresentableListPage } from './list-page.type';
 
 @Component({
   selector: 'lsn-list-page',
@@ -19,11 +21,13 @@ import { TMDBService } from '../tmdb.service';
   providers: [FilmService, TMDBService]
 })
 export class ListPageComponent implements OnInit, AfterViewChecked {
-  public fetchedIndexes: number[] = [];
   public searchPaged: (term: string) => void;
-  public films: any[] = [];
   public searchText = new Subject<string>();
   private searchTerm: string;
+  public presentable: IPresentableListPage;
+
+  private presenter: ListPagePresenter;
+  private readonly unsubscribe = new Subject();
 
   constructor(
     private filmService: FilmService,
@@ -33,7 +37,14 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     private dbAnalyticsService: DbAnalyticsService,
     private pagingService: PagingService,
     private router: Router
-  ) { }
+  ) {
+    this.presenter = new ListPagePresenter(this.filmService, this.tmdbService);
+    this.presenter.presentable$.pipe(
+      takeUntil(this.unsubscribe)
+    ).subscribe((presentable: IPresentableListPage) => {
+      this.presentable = presentable;
+    });
+  }
 
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
@@ -42,7 +53,6 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   public search(term: string): void {
     if (term !== this.searchTerm) {
       this.searchTerm = term;
-      this.fetchedIndexes = [];
       this.searchPaged(term);
     }
   }
@@ -51,10 +61,9 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     this.searchPaged = _.debounce(
       (term: string) => {
         this.filmService.paged(10, term).subscribe((response: FilmDBAnalyticsAndPaging) => {
-          console.log('response', response);
           this.pagingService.publish({ ...response.Paging });
           this.dbAnalyticsService.publish({ ...response });
-          this.films = response.Data;
+          this.presenter.createPresentable(this.presentable, response.Data);
         });
       },
       300,
@@ -76,9 +85,6 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     window.open(url, '_blank');
   }
 
-  public alreadyFetched(i: number) {
-    return _.includes(this.fetchedIndexes, i);
-  }
 
   public delete(id: number): void {
     const confirm: ConfirmConfig = {
@@ -95,24 +101,5 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     this.router.navigate([`edit/${id}`]);
   }
 
-  public getPosterPath(url: string, i: number) {
-    if (i < 10 && !this.alreadyFetched(i)) {
-      this.fetchedIndexes.push(i);
-      const imdbId = this.filmService.getIMDBnumber(url);
-      return this.tmdbService
-        .getMovieByImdbId(imdbId)
-        .subscribe((movie: ITMDBMovie) => {
-          if (movie) {
-            const posterPath = this.tmdbService.getPosterPath(
-              'w154',
-              movie.poster_path
-            );
-            this.films[i].poster_path = posterPath;
-            return posterPath;
-          }
-          return ``;
-        });
-    }
-    return ``;
-  }
+ 
 }
