@@ -1,35 +1,35 @@
 <div fxLayout="column">
-    <div fxLayout>
-        <mat-form-field fxFlex="30" class="lsn-search-box">
-            <input matInput 
-            #searchBox 
-            id="search-box" 
-            placeholder="Search" 
-            
-            (keyup)="search(searchBox.value)">
-        </mat-form-field>
-    </div>
-    <mat-list class="lsn-scrollable">
-        <mat-list-item *ngFor="let film of films; trackBy: film?.Id;let i = index" class="lsn-film-item">
-            <img *ngIf="i < 10" 
-                 matListAvatar 
-                 src="{{film.poster_path || '' }} " 
-                 class="lsn-row-poster"
-                 (click)="gotoIMDB(film.Url)"
-            />
-                <h3 matLine 
-                   fxFlex="80">
-                   <div (click)="edit(film.Id)">
-
-                       {{film.Title}} {{getPosterPath(film.Url, i)}}
-                   </div>
-                </h3> 
-            <button (click)="delete(film.Id)" mat-icon-button >
-                <mat-icon svgIcon="bin"></mat-icon>
-            </button>
-        </mat-list-item>
-    </mat-list>
-    <!-- <mat-list class="lsn-scrollable">
+  <div fxLayout>
+    <mat-form-field fxFlex="30"
+                    class="lsn-search-box">
+      <input matInput
+             #searchBox
+             id="search-box"
+             placeholder="Search"
+             (keyup)="search(searchBox.value)" />
+    </mat-form-field>
+  </div>
+  <mat-list class="lsn-scrollable">
+    <mat-list-item *ngFor="let film of films; trackBy: film?.Id; let i = index"
+                   class="lsn-film-item">
+      <img *ngIf="i < 10"
+           matListAvatar
+           src="{{ film.poster_path || '' }} "
+           class="lsn-row-poster"
+           (click)="gotoIMDB(film.Url)" />
+      <h3 matLine
+          fxFlex="80">
+        <div (click)="edit(film.Id)">
+          {{ film.Title }} {{ getPosterPath(film.Url, i) }}
+        </div>
+      </h3>
+      <button (click)="delete(film.Id)"
+              mat-icon-button>
+        <mat-icon svgIcon="bin"></mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <!-- <mat-list class="lsn-scrollable">
             
         <mat-list-item *ngFor="let film of films ; trackBy: film?.Id;let i = index" 
                        class="lsn-film-item" 

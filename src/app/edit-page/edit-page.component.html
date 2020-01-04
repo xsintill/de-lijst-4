@@ -1,39 +1,60 @@
 <form *ngIf="data">
-    <mat-card fxFlex="50">
-        <mat-card-content fxLayout="column">
-            <mat-form-field fxFlex>
-                <input matInput placeholder="Title" [(ngModel)]="data.Title" (blur)="retrieveResultsForTitle()"
-                    name="titleControl">
-                <!--<mat-error *ngIf="titleControl.error.required">Title is required</mat-error>-->
-            </mat-form-field>
-            <mat-form-field fxFlex>
-                <input matInput placeholder="Url" [(ngModel)]="data.Url" (blur)="retrieveResultsForUrl()"
-                    name="urlControl">
-            </mat-form-field>
-            <div fxFlex="10" fxLayout>
-                <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose date movie seen" name="seenAtControl"
-                        [(ngModel)]="data.SeenAt">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                </mat-form-field>
-                <mat-datepicker #picker></mat-datepicker>
-                <div fxFlex="5"></div>
-                <button mat-mini-fab color="primary" (click)="setSeenAtInHistory()">
-                    <mat-icon svgIcon="history"></mat-icon>
-                </button>
-                <div fxFlex="20"></div>
-            </div>
-        </mat-card-content>
-        <mat-card-actions>
-            <div fxFlex fxLayout>
-                <div fxFlex></div>
-                <button fxFlex="10" mat-raised-button color="primary" (click)="saveMovie()">Save</button>
-            </div>
-
-        </mat-card-actions>
-    </mat-card>
-    <div style="cursor: pointer;" (click)="openLink()">
-        <img fxFlex *ngIf="posterPath" style="margin:10px; width: 400px;height: 400px;object-fit: contain;"
-            src="http://image.tmdb.org/t/p/w500/{{posterPath}}" />
-    </div>
+  <mat-card fxflex="50">
+    <mat-card-content fxlayout="column">
+      <mat-form-field fxflex="fxFlex">
+        <input matinput="matInput"
+               placeholder="Title"
+               [(ngModel)]="data.Title"
+               (blur)="retrieveResultsForTitle()"
+               name="titleControl" />
+        <!--<mat-error *ngIf="titleControl.error.required">Title is required</mat-error>-->
+      </mat-form-field>
+      <mat-form-field fxflex="fxFlex">
+        <input matinput="matInput"
+               placeholder="Url"
+               [(ngModel)]="data.Url"
+               (blur)="retrieveResultsForUrl()"
+               name="urlControl" />
+      </mat-form-field>
+      <div fxflex="10"
+           fxlayout="fxLayout">
+        <mat-form-field>
+          <input matinput="matInput"
+                 [matDatepicker]="picker"
+                 placeholder="Choose date movie seen"
+                 name="seenAtControl"
+                 [(ngModel)]="data.SeenAt" />
+          <mat-datepicker-toggle matsuffix="matSuffix"
+                                 [for]="picker"></mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #picker="#picker"></mat-datepicker>
+        <div fxflex="5"></div>
+        <button mat-mini-fab="mat-mini-fab"
+                color="primary"
+                (click)="setSeenAtInHistory()">
+          <mat-icon svgicon="history"></mat-icon>
+        </button>
+        <div fxflex="20"></div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div fxflex="fxFlex"
+           fxlayout="fxLayout">
+        <div fxflex="fxFlex"></div>
+        <button fxflex="10"
+                mat-raised-button="mat-raised-button"
+                color="primary"
+                (click)="saveMovie()">
+          Save
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+  <div style="cursor: pointer;"
+       (click)="openLink()">
+    <img fxflex="fxFlex"
+         *ngIf="posterPath"
+         style="margin:10px; width: 400px;height: 400px;object-fit: contain;"
+         src="http://image.tmdb.org/t/p/w500/{{ posterPath }}" />
+  </div>
 </form>
