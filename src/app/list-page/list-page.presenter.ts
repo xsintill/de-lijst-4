@@ -30,11 +30,13 @@ export class ListPagePresenter {
     _.each(presentable.viewFilms, (film: ViewFilm) => {
       if (!film.poster_path) {
         const imdbId = this.filmService.getIMDBnumber(film.Url);
-        this.tmdbService.getMovieByImdbId(imdbId).subscribe((movie: ITMDBMovie) => {
-          if (movie) {
-            film.poster_path = this.tmdbService.getPosterPath('w154', movie.poster_path);
-          }
-        });
+        if (imdbId) {
+          this.tmdbService.getMovieByImdbId(imdbId).subscribe((movie: ITMDBMovie) => {
+            if (movie) {
+              film.poster_path = this.tmdbService.getPosterPath('w154', movie.poster_path);
+            }
+          });
+        }
       }
     });
   }

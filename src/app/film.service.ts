@@ -64,7 +64,11 @@ export class FilmService {
     }
 
     public getIMDBnumber(url: string): string {
-        const regex = /[0-9]+$/g;
-        return `tt${url.match(regex)[0]}`;
+        const regex = /([0-9]+)[\/]*\s*$/;
+        if (url.match(regex)) {
+            return `tt${url.match(regex)[1]}`;
+        } else {
+            return undefined;
+        }
     }
 }

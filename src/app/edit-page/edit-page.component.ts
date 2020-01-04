@@ -40,11 +40,15 @@ export class EditPageComponent {
   public retrieveResultsForUrl(): void {
     if (this.data.Url) {
       const imdbId = this.filmService.getIMDBnumber(this.data.Url);
-      this.tmdb.getMovieByImdbId(imdbId).subscribe(
-        (movie: any) => {
-          this.posterPath = movie.movie_results[0].poster_path;
-        }
-      );
+      if (imdbId) {
+        this.tmdb.getMovieByImdbId(imdbId).subscribe(
+          (movie: any) => {
+            if (movie) {
+              this.posterPath = movie.movie_results[0].poster_path;
+            }
+          }
+        );
+      }
     }
   }
 

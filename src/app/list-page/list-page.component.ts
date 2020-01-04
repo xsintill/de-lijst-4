@@ -85,7 +85,6 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     window.open(url, '_blank');
   }
 
-
   public delete(id: number): void {
     const confirm: ConfirmConfig = {
       title: 'Are you sure you want to delete this movie',
@@ -100,6 +99,4 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   public edit(id: number): void {
     this.router.navigate([`edit/${id}`]);
   }
-
- 
 }
