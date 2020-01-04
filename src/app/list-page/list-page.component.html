@@ -29,31 +29,4 @@
       </button>
     </mat-list-item>
   </mat-list>
-  <!-- <mat-list class="lsn-scrollable">
-            
-        <mat-list-item *ngFor="let film of films ; trackBy: film?.Id;let i = index" 
-                       class="lsn-film-item" 
-                       fxLayout 
-                       fxLayoutAlign="start center">
-
-                           <img *ngIf="i < 10" 
-                                matListAvatar 
-                                src="{{film.poster_path || '' }} " 
-                                class="lsn-row-poster"
-                                (click)="gotoIMDB(film.Url)"
-                           /> 
-                           <div class="mat-list-text">
-                               <h3 matLine fxFlex="80">
-                                   {{film.Title}} {{getPosterPath(film.Url, i)}}
-                               </h3>        
-                           </div>
-        
-                           <button (click)="delete(film.Id)"
-                                    color="primary"
-                                    mat-icon-button>
-                               <mat-icon ></mat-icon>
-                           </button>
-        </mat-list-item>
-        <mat-divider class="lsn-list-divider"></mat-divider>
-    </mat-list> -->
 </div>

@@ -2,11 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-import { DbAnalyticsService } from './db-analytics.service';
 import { Film } from './film';
-import { IFilmDBAnalytics } from './film-db-analytics.type';
+import { FilmDBAnalyticsAndPaging } from './film-db-analytics-and-paging.type';
 import { IFilmProxy } from './film-proxy.type';
-import { PagingService } from './paging.service';
 import { IPaging } from './paging.type';
 
 @Injectable()
@@ -21,9 +19,7 @@ export class FilmService {
     }
 
     constructor(
-        private http: HttpClient,
-        private dbAnalyticsService: DbAnalyticsService,
-        private pagingService: PagingService
+        private http: HttpClient
     ) {
     }
 
@@ -31,24 +27,14 @@ export class FilmService {
         return this.http.get<IFilmProxy>(this.baseURL + 'proxy/' + id.toString());
     }
 
-    public paged(pageSize: number, search: string): any {
+    public paged(pageSize: number, search: string): Observable<FilmDBAnalyticsAndPaging> {
         let url: string;
         if (search === '') {
           url = this.baseURL + 'paged/descending/1/' + pageSize.toString();
         } else {
           url = this.baseURL + 'paged/descending/1/' + pageSize.toString() + '/' + search;
         }
-        return this.http
-            .get(url)
-            .toPromise()
-            .then((response: IFilmDBAnalytics & { Paging: IPaging } ) => {
-                const ana: IFilmDBAnalytics = { ...response };
-                const paging: IPaging = { ...response.Paging };
-
-                this.pagingService.publish(paging);
-                this.dbAnalyticsService.publish(ana);
-                return response;
-            });
+        return this.http.get<FilmDBAnalyticsAndPaging>(url);
     }
 
     public noPoster(page: number, pageSize: number) {
@@ -59,7 +45,6 @@ export class FilmService {
         let tempsearchUrl: string;
         if (search === '') {
             tempsearchUrl = this.baseURL + 'ProxyPaged/descending/' + page + '/' + pageSize;
-
         } else {
             tempsearchUrl = this.baseURL + 'ProxyPaged/descending/' + page + '/' + pageSize + '/' + search;
         }

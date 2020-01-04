@@ -3,9 +3,12 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 
+import { DbAnalyticsService } from '../db-analytics.service';
 import { ConfirmConfig } from '../dialog/confirm-config.type';
 import { DialogService } from '../dialog/dialog.service';
+import { FilmDBAnalyticsAndPaging } from '../film-db-analytics-and-paging.type';
 import { FilmService } from '../film.service';
+import { PagingService } from '../paging.service';
 import { ITMDBMovie } from '../tmdb-movie.type';
 import { TMDBService } from '../tmdb.service';
 
@@ -20,12 +23,15 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   public searchPaged: (term: string) => void;
   public films: any[] = [];
   public searchText = new Subject<string>();
+  private searchTerm: string;
 
   constructor(
     private filmService: FilmService,
     private tmdbService: TMDBService,
     private cdRef: ChangeDetectorRef,
     public dialog: DialogService,
+    private dbAnalyticsService: DbAnalyticsService,
+    private pagingService: PagingService,
     private router: Router
   ) { }
 
@@ -34,14 +40,20 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   }
 
   public search(term: string): void {
-    this.fetchedIndexes = [];
-    this.searchPaged(term);
+    if (term !== this.searchTerm) {
+      this.searchTerm = term;
+      this.fetchedIndexes = [];
+      this.searchPaged(term);
+    }
   }
 
   public ngOnInit() {
     this.searchPaged = _.debounce(
       (term: string) => {
-        this.filmService.paged(10, term).then((response: any) => {
+        this.filmService.paged(10, term).subscribe((response: FilmDBAnalyticsAndPaging) => {
+          console.log('response', response);
+          this.pagingService.publish({ ...response.Paging });
+          this.dbAnalyticsService.publish({ ...response });
           this.films = response.Data;
         });
       },
