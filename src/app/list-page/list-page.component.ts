@@ -2,7 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 import { DbAnalyticsService } from '../db-analytics.service';
 import { ConfirmConfig } from '../dialog/confirm-config.type';
@@ -29,6 +29,8 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   private presenter: ListPagePresenter;
   private readonly unsubscribe = new Subject();
 
+  private readonly keyUpSubject = new Subject<KeyboardEvent>();
+
   constructor(
     private filmService: FilmService,
     private tmdbService: TMDBService,
@@ -44,6 +46,12 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
     ).subscribe((presentable: IPresentableListPage) => {
       this.presentable = presentable;
     });
+
+    this.keyUpSubject
+      .pipe(debounceTime(300))
+      .subscribe((event: KeyboardEvent) => {
+        this.search((event.target as HTMLInputElement).value);
+      });
   }
 
   ngAfterViewChecked() {
@@ -58,25 +66,20 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   }
 
   public ngOnInit() {
-    this.searchPaged = _.debounce(
-      (term: string) => {
-        this.filmService.paged(10, term).subscribe((response: FilmDBAnalyticsAndPaging) => {
-          this.pagingService.publish({ ...response.Paging });
-          this.dbAnalyticsService.publish({ ...response });
-          this.presenter.createPresentable(this.presentable, response.Data);
-        });
-      },
-      300,
-      {
-        trailing: true
-      }
-    );
-
+    this.searchPaged = (term: string) => {
+      this.filmService.paged(term, 1, 10).pipe(
+        debounceTime(300)
+      ).subscribe((response: FilmDBAnalyticsAndPaging) => {
+        this.pagingService.publish({ ...response.Paging });
+        this.dbAnalyticsService.publish({ ...response });
+        this.presenter.createPresentable(this.presentable, response.Data);
+      });
+    };
     this.searchPaged('');
   }
 
   public gotoIMDB(imdbUrl: string): void {
-    // test if we have http or https protocol. if not ad it
+    // test if we have http or https protocol. if not add it
     let url = '';
     if (!/^http[s]?:\/\//.test(imdbUrl)) {
       url += 'https://';

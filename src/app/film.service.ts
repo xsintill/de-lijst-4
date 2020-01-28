@@ -27,12 +27,12 @@ export class FilmService {
         return this.http.get<IFilmProxy>(this.baseURL + 'proxy/' + id.toString());
     }
 
-    public paged(pageSize: number, search: string): Observable<FilmDBAnalyticsAndPaging> {
+    public paged(search: string, page: number, pageSize: number): Observable<FilmDBAnalyticsAndPaging> {
         let url: string;
         if (search === '') {
-          url = this.baseURL + 'paged/descending/1/' + pageSize.toString();
+          url = `${this.baseURL}paged/descending/${page}/${pageSize.toString()}`;
         } else {
-          url = this.baseURL + 'paged/descending/1/' + pageSize.toString() + '/' + search;
+          url = `${this.baseURL}paged/descending/${page}/${pageSize.toString()}/${search}`;
         }
         return this.http.get<FilmDBAnalyticsAndPaging>(url);
     }
@@ -41,14 +41,14 @@ export class FilmService {
         return this.http.get(this.baseURL + 'NoPoster/' + page + '/' + pageSize);
     }
 
-    public pagedProxy(search: string, page: number, pageSize: number) {
+    public pagedProxy(search: string, page: number, pageSize: number): Observable<FilmDBAnalyticsAndPaging> {
         let tempsearchUrl: string;
         if (search === '') {
             tempsearchUrl = this.baseURL + 'ProxyPaged/descending/' + page + '/' + pageSize;
         } else {
             tempsearchUrl = this.baseURL + 'ProxyPaged/descending/' + page + '/' + pageSize + '/' + search;
         }
-        return this.http.get(tempsearchUrl).toPromise();
+        return this.http.get<FilmDBAnalyticsAndPaging>(tempsearchUrl);
     }
 
     public delete(movieId: number) {
