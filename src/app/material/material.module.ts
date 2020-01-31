@@ -1,4 +1,5 @@
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
@@ -25,7 +26,8 @@ import {
     MatListModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ScrollingModule
   ],
   exports: [
     MatToolbarModule,
@@ -37,7 +39,8 @@ import {
     MatListModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ScrollingModule
   ],
   declarations: []
 })

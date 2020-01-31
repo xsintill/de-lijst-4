@@ -1,0 +1,52 @@
+.lsn-film-item {
+    margin-right: 10px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 48px;
+    text-transform: capitalize;
+   
+    background-color: #f1f1f1;
+    // padding-top: 8px;
+    padding-left: 0px !important;
+    border-left-color: black;
+    border-left-style: solid;
+    cursor:pointer;
+    height:194px !important;
+    h3 {
+        div {
+            text-overflow: ellipsis;
+        }
+    } 
+}
+.lsn-film-item:hover{
+    background-color: #e1e1e1;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+}
+.lsn-search-box {
+    margin: 10px;
+}
+.lsn-scrollable{
+    overflow: auto;
+}
+.lsn-row-poster{
+    margin-right: 10px;
+    height: 184px !important; 
+    width: 120px !important; 
+    object-fit: contain !important;
+    border-radius:0% !important;
+}
+.lsn-row-poster:hover{
+    transform: scale(1.07);
+}
+.lsn-list-divider{
+    color: black
+}
+
+.list-page-viewport {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .list-item {
+    height: 50px;
+  }
+  

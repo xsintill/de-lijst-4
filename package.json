@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "start npm run backend  && start npm run frontend",
     "backend": "node ./iisexpress.js",
-    "frontend": "ng serve --port 4201 -o ",
+    "frontend": "ng serve --port 4201 -o --host 0.0.0.0",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

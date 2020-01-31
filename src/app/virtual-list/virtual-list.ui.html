@@ -1,0 +1,34 @@
+<div fxLayout="column">
+  <div fxLayout>
+    <mat-form-field fxFlex="30"
+                    class="lsn-search-box">
+      <input matInput
+             placeholder="Search"
+             (keyup)="keyUpSubject.next($event)" />
+    </mat-form-field>
+  </div>
+</div>
+<cdk-virtual-scroll-viewport itemSize="184"
+                             class="list-page-viewport" >
+  <mat-list>
+    <mat-list-item *cdkVirtualFor="let item of presentable?.viewFilms"                   
+                   class="lsn-film-item">
+                   
+      <img matListAvatar
+           src="{{ item?.poster_path || '' }}"
+           class="lsn-row-poster"
+           (click)="gotoIMDB(item?.Url)" />
+
+      <h3 matLine
+          fxFlex="80">
+        <div (click)="edit(item?.Id)">
+          {{ item?.Title }}
+        </div>
+      </h3>
+      <button (click)="delete(item?.Id)"
+              mat-icon-button>
+        <mat-icon svgIcon="bin"></mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</cdk-virtual-scroll-viewport>
