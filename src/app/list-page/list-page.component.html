@@ -6,11 +6,11 @@
              #searchBox
              id="search-box"
              placeholder="Search"
-             (keyup)="search(searchBox.value)" />
+             (keyup)="keyUpSubject.next($event)" />
     </mat-form-field>
   </div>
   <mat-list class="lsn-scrollable">
-    <mat-list-item *ngFor="let film of presentable.viewFilms; trackBy: film?.Id; let i = index"
+    <mat-list-item *ngFor="let film of presentable?.viewFilms; trackBy: film?.Id; let i = index"
                    class="lsn-film-item">
       <img *ngIf="i < 10"
            matListAvatar
