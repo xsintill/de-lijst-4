@@ -38,7 +38,7 @@ import { PagingService } from '../paging.service';
 })
 export class VirtualListUi implements OnChanges, OnInit {
 
-  @ViewChild('searchBox', { static: false }) searchBox: ElementRef;
+  @ViewChild('searchBox') searchBox: ElementRef;
   private readonly keyUpSubject = new Subject<KeyboardEvent>();
 
   public searchPaged: (term: string) => void;

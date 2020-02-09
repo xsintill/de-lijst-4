@@ -28,7 +28,7 @@
         "name": "tslint-language-service"
       }
     ],
-    "module": "es2015",
+    "module": "esnext",
     "baseUrl": "./"
  
   }
