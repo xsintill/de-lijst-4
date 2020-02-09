@@ -43,7 +43,7 @@ export class EditPageComponent {
       if (imdbId) {
         this.tmdb.getMovieByImdbId(imdbId).subscribe(
           (movie: any) => {
-            if (movie) {
+            if (movie?.movie_results) {
               this.posterPath = movie.movie_results[0].poster_path;
             }
           }
