@@ -57,7 +57,7 @@ export class EditPageComponent {
   }
 
   public retrieveResultsForTitle() {
-    if (this.data.Title) {
+    if (this.data.Title && !this.data.Url) {
       this.tmdb.searchMovie(this.data.Title).subscribe((response) => {
         this.tmdb.getMovie(response[0].id).subscribe(
           (movie: ITMDBMovie) => {
