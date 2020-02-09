@@ -28,7 +28,8 @@ const appRoutes: Routes = [
   { path: 'list', component: ListPageComponent },
   { path: 'virtual-list', component: VirtualListComponent },
   { path: 'edit/:id', component: EditPageComponent },
-  { path: 'add', component: EditPageComponent }
+  { path: 'add', component: EditPageComponent },
+  { path: '', redirectTo: '/virtual-list', pathMatch: 'full' }
 ];
 
 @NgModule({

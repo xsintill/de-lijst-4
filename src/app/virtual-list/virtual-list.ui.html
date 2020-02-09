@@ -1,19 +1,21 @@
-<!-- <div fxLayout="column">
+<div fxLayout="column">
   <div fxLayout>
     <mat-form-field fxFlex="30"
                     class="lsn-search-box">
       <input matInput
+             #searchBox
+             id="search-box"
              placeholder="Search"
              (keyup)="keyUpSubject.next($event)" />
     </mat-form-field>
   </div>
-</div> -->
-<!-- <cdk-virtual-scroll-viewport itemSize="184"
-                             class="list-page-viewport" >
-  <mat-list *ngIf="presentable">
-    <mat-list-item *cdkVirtualFor="let item of connector"                   
+</div>
+<cdk-virtual-scroll-viewport itemSize="184"
+                             class="list-page-viewport">
+  <mat-list>
+    <mat-list-item *cdkVirtualFor="let item of connector"
                    class="lsn-film-item">
-                   
+
       <img matListAvatar
            src="{{ item?.poster_path || '' }}"
            class="lsn-row-poster"
@@ -31,8 +33,4 @@
       </button>
     </mat-list-item>
   </mat-list>
-</cdk-virtual-scroll-viewport> -->
-
-<cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-  <div *cdkVirtualFor="let item of ds" class="example-item">{{item || 'Loading...'}}</div>
 </cdk-virtual-scroll-viewport>
