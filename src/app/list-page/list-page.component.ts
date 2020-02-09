@@ -29,7 +29,7 @@ export class ListPageComponent implements OnInit, AfterViewChecked {
   private presenter: ListPagePresenter;
   private readonly unsubscribe = new Subject();
 
-  private readonly keyUpSubject = new Subject<KeyboardEvent>();
+  public keyUpSubject = new Subject<KeyboardEvent>();
 
   constructor(
     private filmService: FilmService,

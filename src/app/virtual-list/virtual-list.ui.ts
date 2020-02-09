@@ -3,31 +3,28 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild,
-  ElementRef
+  ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
+import { DbAnalyticsService } from '../db-analytics.service';
 import { ConfirmConfig } from '../dialog/confirm-config.type';
 import { DialogService } from '../dialog/dialog.service';
 import { FilmDBAnalyticsAndPaging } from '../film-db-analytics-and-paging.type';
 import { FilmService } from '../film.service';
+import { PagingService } from '../paging.service';
 import { TMDBService } from '../tmdb.service';
 import { VirtualListConnector } from './virtual-list-connector';
-import { DbAnalyticsService } from '../db-analytics.service';
-import { PagingService } from '../paging.service';
-
-
-
 
 @Component({
   selector: 'lsn-virtual-list-ui',
@@ -39,7 +36,7 @@ import { PagingService } from '../paging.service';
 export class VirtualListUi implements OnChanges, OnInit {
 
   @ViewChild('searchBox') searchBox: ElementRef;
-  private readonly keyUpSubject = new Subject<KeyboardEvent>();
+  public keyUpSubject = new Subject<KeyboardEvent>();
 
   public searchPaged: (term: string) => void;
 
@@ -51,7 +48,6 @@ export class VirtualListUi implements OnChanges, OnInit {
   // tslint:disable-next-line: no-output-on-prefix
   @Output()
   public onSearch: EventEmitter<[string, number, number]> = new EventEmitter();
-
 
   public connector: VirtualListConnector;
   public searchTerm: string;
@@ -106,7 +102,7 @@ export class VirtualListUi implements OnChanges, OnInit {
 
   public ngOnChanges(changes: SimpleChanges) {
     if (changes.pagedResult) {
-      this.connector.setPageResult(this.pagedResult)
+      this.connector.setPageResult(this.pagedResult);
     }
   }
 

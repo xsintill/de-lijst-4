@@ -19,7 +19,7 @@
     "@angular/common": "~9.0.0",
     "@angular/compiler": "~9.0.0",
     "@angular/core": "~9.0.0",
-    "@angular/flex-layout": "^9.0.0-beta.29",
+    "@angular/flex-layout": "^9.0.0-beta.28",
     "@angular/forms": "~9.0.0",
     "@angular/material": "^9.0.0",
     "@angular/platform-browser": "~9.0.0",
@@ -28,7 +28,7 @@
     "lodash": "^4.17.15",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "yarn": "^1.19.2",
+    "yarn": "^1.22.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
