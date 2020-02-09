@@ -1,6 +1,6 @@
 import { EventEmitter } from '@angular/core';
 
-import { ViewFilm } from '../list-page/list-page.type';
+import { IFilm } from '../film.type';
 import { VirtualListConnector } from './virtual-list-connector';
 
 export interface IVirtualPresentableListPage {
@@ -10,4 +10,11 @@ export interface IVirtualPresentableListPage {
   connector: VirtualListConnector;
   onSearch: EventEmitter<[string, number, number]>;
   firstRun: boolean;
+}
+
+export type ViewFilm = IFilm & { poster_path?: string };
+
+export interface IPresentableListPage {
+  films: IFilm[];
+  viewFilms: ViewFilm[];
 }

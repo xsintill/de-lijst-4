@@ -16,7 +16,6 @@ import { DirectivesModule } from './directives/directives.module';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { ListPageComponent } from './list-page/list-page.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { CustomMaterialModule } from './material/material.module';
 import { PagingService } from './paging.service';
@@ -25,7 +24,6 @@ import { VirtualListComponent } from './virtual-list/virtual-list.container';
 import { VirtualListUi } from './virtual-list/virtual-list.ui';
 
 const appRoutes: Routes = [
-  { path: 'list', component: ListPageComponent },
   { path: 'virtual-list', component: VirtualListComponent },
   { path: 'edit/:id', component: EditPageComponent },
   { path: 'add', component: EditPageComponent },
@@ -39,7 +37,6 @@ const appRoutes: Routes = [
     MainContentComponent,
     FooterComponent,
     SideMenuComponent,
-    ListPageComponent,
     VirtualListComponent,
     VirtualListUi,
     EditPageComponent

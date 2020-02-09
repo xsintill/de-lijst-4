@@ -7,10 +7,10 @@ import { DbAnalyticsService } from '../db-analytics.service';
 import { FilmDBAnalyticsAndPaging } from '../film-db-analytics-and-paging.type';
 import { FilmService } from '../film.service';
 import { IFilm } from '../film.type';
-import { ViewFilm } from '../list-page/list-page.type';
 import { PagingService } from '../paging.service';
 import { ITMDBMovie } from '../tmdb-movie.type';
 import { TMDBService } from '../tmdb.service';
+import { ViewFilm } from './virtual-list.type';
 
 export class VirtualListConnector extends DataSource<ViewFilm | undefined>  {
   private _length = 10;
