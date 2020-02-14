@@ -43,9 +43,9 @@ export class EditPageComponent {
       if (imdbId) {
         this.tmdb.getMovieByImdbId(imdbId).subscribe(
           (movie: any) => {
-            if (movie?.movie_results) {
-              this.posterPath = movie.movie_results[0].poster_path;
-            }
+            console.log(movie)
+            this.movie = movie;
+            this.posterPath = movie.poster_path;
           }
         );
       }
@@ -59,16 +59,18 @@ export class EditPageComponent {
   public retrieveResultsForTitle() {
     if (this.data.Title && !this.data.Url) {
       this.tmdb.searchMovie(this.data.Title).subscribe((response) => {
-        this.tmdb.getMovie(response[0].id).subscribe(
-          (movie: ITMDBMovie) => {
-            console.log('movie', movie);
-            if (movie) {
-              this.movie = movie;
-              this.data.Url = `http://www.imdb.com/title/${movie.imdb_id}`;
-              this.posterPath = movie.poster_path;
+        if(response.length > 0) {
+          this.tmdb.getMovie(response[0].id).subscribe(
+            (movie: ITMDBMovie) => {
+              console.log('movie', movie);
+              if (movie) {
+                this.movie = movie;
+                this.data.Url = `http://www.imdb.com/title/${movie.imdb_id}`;
+                this.posterPath = movie.poster_path;
+              }
             }
-          }
-        );
+          );
+        }
       });
     }
   }

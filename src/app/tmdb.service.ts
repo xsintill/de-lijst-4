@@ -20,17 +20,20 @@ export class TMDBService {
         console.log(`${this.url}movie/${tmdbId}?api_key=${environment.tmdbApiKey}`);
         return this.http.get(`${this.url}movie/${tmdbId}?api_key=${environment.tmdbApiKey}`)
             .pipe(
-                map((response: any) => {
-                    return response;
-                })
+                map((response: any) => response)
             );
     }
     public getMovieByImdbId(imdbId: string): Observable<ITMDBMovie> {
         return this.http.get(`${this.url}find/${imdbId}?api_key=${environment.tmdbApiKey}&external_source=imdb_id`)
             .pipe(
                 tap((response: { movie_results: any[] }) => console.log(response.movie_results[0])),
-                map((response: { movie_results: any[] }) => response.movie_results[0])
-            );
+                map((response: { movie_results: any[] }) => {
+                    if (response?.movie_results?.length > 0) {
+                        return response.movie_results[0];
+                    } else {
+                        return undefined;
+                    }
+                }))
     }
     public searchMovie(title: string): Observable<any> {
         return this.http.get(`
