@@ -51,7 +51,10 @@ export class TMDBService {
                 map((response: any) => response)
             );
     }
+
     public getPosterPath(imageSize: string, imageFileName: string): string {
-        return `http://image.tmdb.org/t/p/${imageSize}/${imageFileName}`;
+        return (imageFileName) ?
+            `http://image.tmdb.org/t/p/${imageSize}/${imageFileName}` :
+            '/assets/image/placeholder-movie-poster.jpg';
     }
 }
